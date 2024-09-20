@@ -16,6 +16,8 @@ def show_main_menu():
     elif user_menu_choice in 'Nn':
       print('New order')
       make_order(user_menu_choice.upper())  #calls a function for adding to the orders
+    else:
+      print("Invalid choice. Please choose N, X, or Q.") 
 
 def make_order(menu_choice):
   print('Functionality for menu choice ', menu_choice)
