@@ -16,7 +16,7 @@ def show_main_menu():
     elif user_menu_choice in 'Nn':
       print('New order')
       make_order(user_menu_choice.upper())  #calls a function for adding to the orders
-      
+
 def make_order(menu_choice):
   print('Functionality for menu choice ', menu_choice)
   user_selection = functions.get_item_number()
