@@ -40,6 +40,51 @@ def make_order(menu_choice):
             break
 
   print(f"Order Summary: {orders}")
+def make_order(menu_choice):
+    print('Functionality for menu choice ', menu_choice)
+    
+    orders = []  # List to store items for the current order
+    
+    while True:
+        # Get the customer input for item and quantity
+        user_selection = input("Enter item code and quantity (e.g., '30 BURGER'): ").upper()
+        
+        try:
+            # Split the input into quantity and item code
+            quantity, item_code = user_selection.split()
+            quantity = int(quantity)  # Ensure quantity is a valid integer
+        except ValueError:
+            print("Invalid input format. Please enter in the format 'quantity ITEM_CODE'.")
+            continue
+        
+        # Verify if the item is on the menu
+        item_name, item_price, stock = functions.get_item_information(item_code)
+        
+        if item_name:
+            print(f"Item found: {item_name}, Unit Price: ${item_price:.2f}, Stock: {stock}")
+            
+            # Check if the requested quantity is available
+            if quantity <= stock:
+                total_price = item_price * quantity
+                orders.append((item_name, quantity, total_price))
+                
+                # Update the stock
+                for item in data.menu_items_dict:
+                    if item['code'] == item_code:
+                        item['stock'] -= quantity
+                        break
+                
+                print(f"Order confirmed: {quantity} x {item_name}, Total Price: ${total_price:.2f}")
+            else:
+                print(f"Sorry, only {stock} units of {item_name} are available.")
+        else:
+            print("Invalid item code. Please try again.")
+        
+        more_items = input("Add more items? (Y/N): ").upper()
+        if more_items != 'Y':
+            break
+
+    print(f"Order Summary: {orders}")
 def close_order(menu_choice):
   print('Functionality for menu choice ', menu_choice)
 
