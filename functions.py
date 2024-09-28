@@ -3,11 +3,6 @@
 #Use this  function that will return the item name and price for a given item code
 # for example, find_menu_item('D2') should return Lemonade, and integer 3 as the result
 import data
-def get_item_information(item_code):
-  for item in data.menu_items_dict:
-        if item['code'] == item_code:
-            return item['name'], item['price']
-  return None, None
 
 def display_items():
   pass
@@ -19,10 +14,10 @@ def get_item_number():
  else:
       print("Invalid item code. Please try again.")
       return get_item_number()
-
 def get_item_information(item_code):
     # Search for the item in the menu_items_dict
     for item in data.menu_items_dict:
         if item['code'] == item_code:
             return item['name'], item['price'], item.get('stock', 'Unlimited')
     return None, None, None
+
