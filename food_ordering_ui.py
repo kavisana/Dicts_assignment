@@ -12,7 +12,7 @@ def show_main_menu():
     if user_menu_choice in 'Qq':
       break
     elif user_menu_choice in 'Xx':
-      print('This option prints the list of items ordered, extended price, total, Taxes, and Grand total ')
+      close_order(user_menu_choice())
     elif user_menu_choice in 'Nn':
       print('New order')
       make_order(user_menu_choice.upper())  #calls a function for adding to the orders
@@ -21,19 +21,25 @@ def show_main_menu():
 
 def make_order(menu_choice):
   print('Functionality for menu choice ', menu_choice)
-  user_selection = functions.get_item_number()
-  item_code, quantity = user_selection.split()
-  print(functions.get_item_information(item_code))
-  item_name, item_price = functions.get_item_information(item_code)
-  if item_name:
-            print(f"Item added: {item_name}, Quantity: {quantity}, Unit Price: ${item_price}")
-            # Store the item and quantity (implement how you want to store orders)
-            # Example: orders.append((item_name, int(quantity), item_price * int(quantity)))
-  else:
-      print("Invalid item code. Please try again.")
-  more_items = input("Add more items? (Y/N): ").upper()
+  orders=[]
+  while True:
+        user_selection = functions.get_item_number()  # Get item number and quantity
+        item_code, quantity = user_selection.split()
+        item_name, item_price = functions.get_item_information(item_code)
+        
+        if item_name:
+            quantity = int(quantity)
+            total_price = item_price * quantity
+            orders.append((item_name, quantity, total_price))
+            print(f"Item added: {item_name}, Quantity: {quantity}, Unit Price: ${item_price:.2f}, Total: ${total_price:.2f}")
+        else:
+            print("Invalid item code. Please try again.")
+        
+        more_items = input("Add more items? (Y/N): ").upper()
+        if more_items != 'Y':
+            break
 
-
+  print(f"Order Summary: {orders}")
 def close_order(menu_choice):
   print('Functionality for menu choice ', menu_choice)
 
