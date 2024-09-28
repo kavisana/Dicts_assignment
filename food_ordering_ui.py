@@ -43,14 +43,96 @@ def make_order(menu_choice):
 def close_order(menu_choice):
   print('Functionality for menu choice ', menu_choice)
 
+def show_manager_menu():
+    while True:
+        print("Manager Menu")
+        print("__________")
+        print('1. Change item price')
+        print('2. Change item description')
+        print('3. Add a new item')
+        print('4. Remove an item')
+        print('Q. Return to main menu')
+        manager_choice = input('Your choice: ')
 
+        if manager_choice == '1':
+            change_item_price()
+        elif manager_choice == '2':
+            change_item_description()
+        elif manager_choice == '3':
+            add_new_item()
+        elif manager_choice == '4':
+            remove_item()
+        elif manager_choice in 'Qq':
+            break
+        else:
+            print("Invalid choice. Please choose a valid option.")
+
+# Function to change the price of an existing menu item
+def change_item_price():
+    item_code = input("Enter the item code you want to update the price for: ").upper()
+    item_name, item_price = functions.get_item_information(item_code)
+    
+    if item_name:
+        print(f"Current price of {item_name}: ${item_price:.2f}")
+        new_price = float(input("Enter the new price: "))
+        for item in data.menu_items_dict:
+            if item['code'] == item_code:
+                item['price'] = new_price
+                print(f"Price for {item_name} updated to ${new_price:.2f}")
+                break
+    else:
+        print("Invalid item code. Please try again.")
+
+# Function to change the description/name of an existing menu item
+def change_item_description():
+    item_code = input("Enter the item code you want to update the description for: ").upper()
+    item_name, item_price = functions.get_item_information(item_code)
+    
+    if item_name:
+        print(f"Current description of {item_code}: {item_name}")
+        new_description = input("Enter the new description: ")
+        for item in data.menu_items_dict:
+            if item['code'] == item_code:
+                item['name'] = new_description
+                print(f"Description for {item_code} updated to {new_description}")
+                break
+    else:
+        print("Invalid item code. Please try again.")
+
+# Function to add a new item to the menu
+def add_new_item():
+    new_code = input("Enter the code for the new item: ").upper()
+    new_name = input("Enter the name/description of the new item: ")
+    new_price = float(input("Enter the price of the new item: "))
+    
+    # Add the new item to the menu list
+    new_item = {
+        'code': new_code,
+        'name': new_name,
+        'price': new_price
+    }
+
+    # If it's not a drink, assign a random stock number
+    if new_code not in data.drink_items:
+        new_item['stock'] = random.randint(25, 50)
+    
+    data.menu_items_dict.append(new_item)
+    print(f"New item {new_name} added to the menu.")
+
+# Function to remove an existing item from the menu
+def remove_item():
+    item_code = input("Enter the item code you want to remove: ").upper()
+    item_name, item_price = functions.get_item_information(item_code)
+    
+    if item_name:
+        confirmation = input(f"Are you sure you want to remove {item_name}? (Y/N): ").upper()
+        if confirmation == 'Y':
+            data.menu_items_dict = [item for item in data.menu_items_dict if item['code'] != item_code]
+            print(f"{item_name} has been removed from the menu.")
+        else:
+            print("Item not removed.")
+    else:
+        print("Invalid item code. Please try again.")
 
 if __name__ == '__main__':
-    #initialize the lists
-    drinks = []
-    appetizers = []
-    salads = []
-    entrees = []
-    dessert= []
-    #print(functions.get_item_information('D1'))
     show_main_menu()
