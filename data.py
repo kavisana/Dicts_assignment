@@ -26,4 +26,23 @@ appetizer_items = ['A1', 'A2',  'A3', 'A4', 'A5']
 salad_items = ['S1', 'S2', 'S3']
 entree_items = ['E1', 'E2',  'E3', 'E4']
 dessert_items =['T1', 'T2',  'T3', 'T4']
+menu_items_dict = []
+
+for item in menu_items:
+    # Split the item into code, name, and price
+    item_split = item.split()
+    code = item_split[0]
+    name = "_".join(item_split[1:-1])  # Join the name part if it's split
+    price = float(item_split[-1])  # Convert price to float
+    
+    # Append the dictionary to the list
+    menu_items_dict.append({
+        'code': code,
+        'name': name,
+        'price': price
+    })
+
+# Now menu_items_dict contains the list of dictionaries
+for item in menu_items_dict:
+    print(item)
 all_items = drink_items + appetizer_items + salad_items + entree_items + dessert_items
