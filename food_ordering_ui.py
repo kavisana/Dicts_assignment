@@ -11,13 +11,13 @@ def show_main_menu():
         print('Q for quit')
         user_menu_choice = input('Your choice: ').upper()
         
-        if user_menu_choice == 'Qq':
+        if user_menu_choice == 'Q':
             break
-        elif user_menu_choice == 'Xx':
+        elif user_menu_choice == 'X':
             close_order(user_menu_choice)
-        elif user_menu_choice == 'Nn':
+        elif user_menu_choice == 'N':
             make_order(user_menu_choice)
-        elif user_menu_choice == 'Mm':
+        elif user_menu_choice == 'M':
             show_manager_menu()
         else:
             print("Invalid choice. Please choose N, X, M, or Q.")
@@ -76,7 +76,7 @@ def close_order(menu_choice):
 
 def show_manager_menu():
     while True:
-        print("Manager Options")
+        print("\nManager Options")
         print("1. Add a new menu item")
         print("2. Remove a menu item")
         print("3. Update a menu item (Price or Description)")
