@@ -76,7 +76,7 @@ def close_order(menu_choice):
 
 def show_manager_menu():
     while True:
-        print("\nManager Options")
+        print("Manager Options")
         print("1. Add a new menu item")
         print("2. Remove a menu item")
         print("3. Update a menu item (Price or Description)")
